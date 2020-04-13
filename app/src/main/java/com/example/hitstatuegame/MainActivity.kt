@@ -206,6 +206,9 @@ class MainActivity : AppCompatActivity() {
             var mBlockSet = BlockViewSet(bossImageView,2,this)
             viewList.add(mBlockSet)
         }
+        else if(viewList.size<=1 && BossFightFlag==true){
+            nextStageImageView.visibility =View.VISIBLE
+        }
     }
     companion object {
         @kotlin.jvm.JvmField

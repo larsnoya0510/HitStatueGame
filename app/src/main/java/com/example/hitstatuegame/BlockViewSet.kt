@@ -52,7 +52,7 @@ class BlockViewSet(imageView: ImageView,level : Int,context :Context) {
                         )
                     }
                 }
-                life > 0 && life < 10 -> {
+                life > 0 && life < 20 -> {
                     (mContext as MainActivity).runOnUiThread {
                         mImageView.setImageDrawable(mContext.resources.getDrawable(R.drawable.boss1fixhit))
                     }

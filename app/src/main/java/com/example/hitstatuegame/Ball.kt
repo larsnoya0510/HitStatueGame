@@ -36,7 +36,7 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
     var imageView: ImageView? = null
     lateinit var ballRunnable: Runnable
     var boundRate: Float = 0F
-
+    var moveAdjustvalue =3
     init {
 //        moveX = orginX
 //        moveY = orginY
@@ -59,9 +59,15 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
                 moveX += decX;
                 moveY += decY;
                 EdgeDetect()
-                blockViewList.forEach {
-                    ItemEdgeDetect(imageView!!, it)
+                var iterator = blockViewList.iterator();
+                while(iterator.hasNext()){
+                    var integer = iterator.next();
+                    ItemEdgeDetect(imageView!!,integer)
                 }
+//                blockViewList.forEach {
+//
+//                    ItemEdgeDetect(imageView!!, it)
+//                }
                 if (sucideCount <= 0) {
                     sucide()
                 }
@@ -145,14 +151,14 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
 //              左右
                 if(mView.left >= mBeHitObject.right -decX.absoluteValue   && mView.left<=mBeHitObject.right +decX.absoluteValue){
                     decX = -decX;
-                    moveX +=decX.absoluteValue*3
+                    moveX +=decX.absoluteValue*moveAdjustvalue
                     BeHitObject.life-=1
                     BeHitObject.checkDelete()
                     println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
                 if (mView.right>=mBeHitObject.left -decX.absoluteValue && mView.right<=mBeHitObject.left +decX.absoluteValue) {
                     decX = -decX;
-                    moveX-=decX.absoluteValue*3
+                    moveX-=decX.absoluteValue*moveAdjustvalue
                     BeHitObject.life-=1
                     BeHitObject.checkDelete()
                     println(" BeHitObject.life  ${ BeHitObject.life}")
@@ -163,14 +169,14 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
 //                上下
                 if(mView.top >= mBeHitObject.bottom -decY.absoluteValue   && mView.top<=mBeHitObject.bottom +decY.absoluteValue){
                     decY = -decY;
-                    moveY +=decY.absoluteValue*3
+                    moveY +=decY.absoluteValue*moveAdjustvalue
                     BeHitObject.life-=1
                     BeHitObject.checkDelete()
                     println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
                 if (mView.bottom>=mBeHitObject.top -decY.absoluteValue && mView.bottom<=mBeHitObject.top +decY.absoluteValue) {
                     decY = -decY;
-                    moveY-=decY.absoluteValue*3
+                    moveY-=decY.absoluteValue*moveAdjustvalue
                     BeHitObject.life-=1
                     BeHitObject.checkDelete()
                     println(" BeHitObject.life  ${ BeHitObject.life}")

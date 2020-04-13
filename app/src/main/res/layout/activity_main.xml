@@ -71,4 +71,14 @@
         android:layout_marginTop="170dp"
         android:visibility="gone"
         app:srcCompat="@drawable/block" />
+
+    <ImageView
+        android:id="@+id/nextStageImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="209dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/next_stage" />
 </RelativeLayout>
