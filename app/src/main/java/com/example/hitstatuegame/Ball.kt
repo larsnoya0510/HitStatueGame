@@ -1,19 +1,11 @@
 package com.example.hitstatuegame
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
@@ -31,15 +23,11 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
     var moveX: Int = 200
     var moveY: Int = 300
     var isMove: Boolean = false// 是否正在移動
-    var isScideble: Boolean = false
     var relative: RelativeLayout? = null
     var imageView: ImageView? = null
     lateinit var ballRunnable: Runnable
-    var boundRate: Float = 0F
     var moveAdjustvalue =3
     init {
-//        moveX = orginX
-//        moveY = orginY
         moveX = initPotion[0].toInt()
         moveY = initPotion[1].toInt()-200
         imageView = ImageView(context!!)
@@ -64,10 +52,6 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
                     var integer = iterator.next();
                     ItemEdgeDetect(imageView!!,integer)
                 }
-//                blockViewList.forEach {
-//
-//                    ItemEdgeDetect(imageView!!, it)
-//                }
                 if (sucideCount <= 0) {
                     sucide()
                 }
@@ -95,25 +79,18 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
     }
 
     private fun EdgeDetect() {
-
-//        imageView!!.post{
             var getWidth=imageView!!.getWidth()
             var getHeight = imageView!!.getHeight()
             var relativegetHeight = relative!!.getHeight()
             if ((moveX + imageView!!.getWidth()) >= relative!!.getWidth() || moveX < 0) {
                 decX = -decX;
             }
-//        if ( moveY < 0 || (moveY + imageView!!.getHeight()) >= relative!!.getHeight()) {
-//            decY = -decY
-//        }
             if ( moveY < 0) {
                 decY = -decY
             }
             if((moveY + imageView!!.getHeight()) >= relative!!.getHeight()){
                 sucide()
             }
-//        }
-
     }
 
 
@@ -143,11 +120,6 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
     fun ItemEdgeDetect(mView: View, BeHitObject : BlockViewSet) {
             var mBeHitObject = BeHitObject.mImageView
             if(mView.bottom <=mBeHitObject.bottom+mView.height && mView.top>=  mBeHitObject.top-mView.height){
-                var Aleft = mView.left
-                var Aright = mView.right
-                var Bleft = mBeHitObject.left
-                var Bright = mBeHitObject.right
-                var Unit = decX.absoluteValue
 //              左右
                 if(mView.left >= mBeHitObject.right -decX.absoluteValue   && mView.left<=mBeHitObject.right +decX.absoluteValue){
                     decX = -decX;
@@ -163,7 +135,6 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
                     BeHitObject.checkDelete()
                     println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
-
             }
             if(mView.left >= mBeHitObject.left - mView.width && mView.right <=mBeHitObject.right + mView.width){
 //                上下

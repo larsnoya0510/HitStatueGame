@@ -55,17 +55,13 @@ class MainActivity : AppCompatActivity() {
 
                             //获取到layoutParams然后改变属性，在设置回去
                             var layoutParams = view.getLayoutParams() as RelativeLayout.LayoutParams
-//                        layoutParams.height = 500
-//                        layoutParams.width = 2000
                             layoutParams.leftMargin = left.toInt();
 //                            layoutParams.topMargin = top.toInt();
                             view.setLayoutParams(layoutParams);
-                            //记录最后一次移动的位置
                             lastX = event.rawX.toInt()
 //                            lastY = event.rawY.toInt()
                         }
                     }
-
                 //刷新界面
                 view.invalidate()
                 return true
@@ -104,9 +100,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         var mWeaponSet = BlockViewSet(weapnImageView,0,this)
         viewList.add(mWeaponSet)
-        var mBlockSet = BlockViewSet(testBlockImageView,1,this)
-        var orginX=20
-        var orginY=20
         for(i in 0 .. 2){
             for(j in 0 ..1) {
                 var imageView = ImageView(this!!)
@@ -122,12 +115,6 @@ class MainActivity : AppCompatActivity() {
                 viewList.add(mBlockSet)
             }
         }
-
-//        viewList.add(mBlockSet)
-//        var mBlockSet2 = BlockViewSet(testBlockImageView2,1,this)
-//        viewList.add(mBlockSet2)
-//        var mBlockSet3 = BlockViewSet(testBlockImageView3,1,this)
-//        viewList.add(mBlockSet3)
         Thread{
             Thread.sleep(3000)
             runOnUiThread { createBall(viewList) }
@@ -140,7 +127,6 @@ class MainActivity : AppCompatActivity() {
         var poitionList= mutableListOf<Float>()
         poitionList.add(getX)
         poitionList.add(getY)
-
 
         var mBall = Ball(this@MainActivity, ballHandler, viewList,poitionList)
         ballList.add(mBall)
@@ -159,19 +145,6 @@ class MainActivity : AppCompatActivity() {
                 iterator.remove()
             }
         }
-
-//        ballList.forEach {
-//            if(it==mBall){
-//                var relative = findViewById<RelativeLayout>(R.id.activity_main_relativelayout)
-//                relative!!.removeView(it.imageView)
-//                ballList.remove(it)
-//            }
-//        }
-
-//        var index = ballList.indexOfFirst { it == mBall }
-//        var relative = findViewById<RelativeLayout>(R.id.activity_main_relativelayout)
-//        relative!!.removeView(ballList[index].imageView)
-//        ballList.remove(mBall)
     }
     fun killBlocks(mBlockViewSet: BlockViewSet){
         var iterator = viewList.iterator();
@@ -183,26 +156,9 @@ class MainActivity : AppCompatActivity() {
                 iterator.remove()
             }
         }
-
-//        viewList.forEach {
-//            if(it==mBlockViewSet){
-//                var relative = findViewById<RelativeLayout>(R.id.activity_main_relativelayout)
-//                relative!!.removeView(it.mImageView)
-//                viewList.remove(it)
-//            }
-//        }
-
-//        var index = viewList.indexOfFirst { it == mBlockViewSet }
-//        var relative = findViewById<RelativeLayout>(R.id.activity_main_relativelayout)
-//        if(index!=-1) {
-//            relative!!.removeView(viewList[index].mImageView)
-//            viewList.remove(mBlockViewSet)
-//        }
         if(viewList.size<=1 && BossFightFlag==false){
             BossFightFlag=true
             bossImageView.visibility = View.VISIBLE
-//            var relative = findViewById<RelativeLayout>(R.id.activity_main_relativelayout)
-//            relative!!.addView(bossImageView)
             var mBlockSet = BlockViewSet(bossImageView,2,this)
             viewList.add(mBlockSet)
         }

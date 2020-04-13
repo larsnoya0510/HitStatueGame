@@ -27,7 +27,6 @@ class BlockViewSet(imageView: ImageView,level : Int,context :Context) {
         if(mLevel==1) {
             when {
                 life <= 0 -> {
-
                     (mContext as MainActivity).runOnUiThread {
                         mImageView.setImageDrawable(mContext.resources.getDrawable(R.drawable.block_final))
                         (mContext as MainActivity).killBlocks(

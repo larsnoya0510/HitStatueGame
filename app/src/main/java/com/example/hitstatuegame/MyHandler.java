@@ -18,7 +18,6 @@ public class MyHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
-//        imageView = (ImageView) activity.findViewById(R.id.activity_main_image);
         if (msg.what == MainActivity.MOVE_IMAGE) {
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -29,5 +28,4 @@ public class MyHandler extends Handler {
             imageView.setLayoutParams(lp);
         }
     }
-
 }
