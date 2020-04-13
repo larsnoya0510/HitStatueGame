@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
-class Ball(var context: Context, var ballHandler: Handler,var blockViewList : MutableList<View>) {
+class Ball(var context: Context, var ballHandler: Handler,var blockViewList : MutableList<BlockViewSet>,var initPotion : MutableList<Float>) {
     var sucideCount = 20
     var handler: Handler? = null
     var MOVE_IMAGE = 1
@@ -26,7 +26,7 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
     var orginY = Random.nextInt(0, 50)
     // 移動方向和距離
     var decX = Random.nextInt(5, 10)
-    var decY = Random.nextInt(5, 10)
+    var decY = -Random.nextInt(5, 10)
     // 座標
     var moveX: Int = 200
     var moveY: Int = 300
@@ -40,11 +40,13 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
     init {
 //        moveX = orginX
 //        moveY = orginY
+        moveX = initPotion[0].toInt()
+        moveY = initPotion[1].toInt()-200
         imageView = ImageView(context!!)
-        imageView!!.setImageDrawable(context.resources.getDrawable(R.drawable.fireballsmall))
+        imageView!!.setImageDrawable(context.resources.getDrawable(R.drawable.fireballverysmall))
         imageView!!.scaleType = ImageView.ScaleType.FIT_XY
         var mLayoutParams = RelativeLayout.LayoutParams(
-            50, 50
+            30, 30
         )
         mLayoutParams.setMargins(orginX, 10, 0, orginY)
         imageView!!.layoutParams = mLayoutParams
@@ -132,8 +134,8 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
             (this.context as MainActivity).killBalls(this)
         }
     }
-    fun ItemEdgeDetect(mView: View, BeHitObject : View) {
-            var mBeHitObject = BeHitObject
+    fun ItemEdgeDetect(mView: View, BeHitObject : BlockViewSet) {
+            var mBeHitObject = BeHitObject.mImageView
             if(mView.bottom <=mBeHitObject.bottom+mView.height && mView.top>=  mBeHitObject.top-mView.height){
                 var Aleft = mView.left
                 var Aright = mView.right
@@ -143,11 +145,17 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
 //              左右
                 if(mView.left >= mBeHitObject.right -decX.absoluteValue   && mView.left<=mBeHitObject.right +decX.absoluteValue){
                     decX = -decX;
-                    moveX +=decX.absoluteValue*5
+                    moveX +=decX.absoluteValue*3
+                    BeHitObject.life-=1
+                    BeHitObject.checkDelete()
+                    println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
                 if (mView.right>=mBeHitObject.left -decX.absoluteValue && mView.right<=mBeHitObject.left +decX.absoluteValue) {
                     decX = -decX;
-                    moveX-=decX.absoluteValue*5
+                    moveX-=decX.absoluteValue*3
+                    BeHitObject.life-=1
+                    BeHitObject.checkDelete()
+                    println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
 
             }
@@ -155,11 +163,17 @@ class Ball(var context: Context, var ballHandler: Handler,var blockViewList : Mu
 //                上下
                 if(mView.top >= mBeHitObject.bottom -decY.absoluteValue   && mView.top<=mBeHitObject.bottom +decY.absoluteValue){
                     decY = -decY;
-                    moveY +=decY.absoluteValue*5
+                    moveY +=decY.absoluteValue*3
+                    BeHitObject.life-=1
+                    BeHitObject.checkDelete()
+                    println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
                 if (mView.bottom>=mBeHitObject.top -decY.absoluteValue && mView.bottom<=mBeHitObject.top +decY.absoluteValue) {
                     decY = -decY;
-                    moveY-=decY.absoluteValue*5
+                    moveY-=decY.absoluteValue*3
+                    BeHitObject.life-=1
+                    BeHitObject.checkDelete()
+                    println(" BeHitObject.life  ${ BeHitObject.life}")
                 }
             }
     }
